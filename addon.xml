@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.service.fritzbox"  name="XBMC Fritzbox Calling Monitor Service" version="1.0.0"  provider-name="Xycl, n.k.">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.service" library="default.py" start="login"></extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">Fritzbox Incomming Call Display</summary>
+        <description lang="en">This Addon displays incoming calls.[CR]It connects to your Fritzbox on port 1012.[CR]To enable the callmonitor you must enter the following code into your telephone.[CR]#96*5* Callmonitor-Support enabled.[CR]#96*4* Callmonitor-Support disabled.</description>
+        <summary lang="de">Fritzbox Eingehender Anruf Anzeige</summary>
+        <description lang="de">Dieses Addon zeigt eingehende Anrufe auf der Fritzbox an.[CR]Dazu muss der Port 1012 auf der Fritzbox freigeschaltet sein.[CR]Tippen Sie dazu auf dem Telefon folgenden Telefoncode ein.[CR]#96*5* Callmonitor-Support aktivieren.[CR]#96*4* Callmonitor-Support deaktivieren </description>
+    </extension>
+</addon>
+
