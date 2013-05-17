@@ -2,7 +2,7 @@
 <addon id="script.service.fritzbox"
        name="Fritzbox Callmonitor"
        version="1.0.0"
-       provider-name="Xycl">
+       provider-name="Xycl, WROW, Yehl">
    <requires>
    	<import addon="xbmc.python" version="2.1.0"/>
   </requires>
