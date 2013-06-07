@@ -106,30 +106,33 @@ class FritzCallmonitor():
 
     def getNameByNumber(self, request_number):
 
-        if __addon__.getSetting( "AB_Fritzadress" ) == 'true':
+        try:
+            if __addon__.getSetting( "AB_Fritzadress" ) == 'true':
 
-            if self.__pytzbox is None:
+                if self.__pytzbox is None:
 
-                password = False
-                if __addon__.getSetting( "AB_FritzboxPassword" ) and len(str(__addon__.getSetting( "AB_FritzboxPassword" ))) > 0:
-                    password = __addon__.getSetting( "AB_FritzboxPassword" )
+                    password = False
+                    if __addon__.getSetting( "AB_FritzboxPassword" ) and len(str(__addon__.getSetting( "AB_FritzboxPassword" ))) > 0:
+                        password = __addon__.getSetting( "AB_FritzboxPassword" )
 
-                self.__pytzbox = PytzBox.PytzBox(password=password, host=__addon__.getSetting( "S_IP" ))
+                    self.__pytzbox = PytzBox.PytzBox(password=password, host=__addon__.getSetting( "S_IP" ))
 
-                if password:
-                    self.__pytzbox.login()
+                    if password:
+                        self.__pytzbox.login()
 
-            if self.__fb_phonebook is None:
-                self.__fb_phonebook = self.__pytzbox.getPhonebook()
+                if self.__fb_phonebook is None:
+                    self.__fb_phonebook = self.__pytzbox.getPhonebook()
 
-            if isinstance(self.__fb_phonebook, dict):
-                for entry in self.__fb_phonebook:
-                    if 'numbers' in self.__fb_phonebook[entry]:
-                        for number in self.__fb_phonebook[entry]['numbers']:
-                            if self.equalNumbers(number, request_number):
-                                return entry
+                if isinstance(self.__fb_phonebook, dict):
+                    for entry in self.__fb_phonebook:
+                        if 'numbers' in self.__fb_phonebook[entry]:
+                            for number in self.__fb_phonebook[entry]['numbers']:
+                                if self.equalNumbers(number, request_number):
+                                    return entry
 
-        return False
+            return False
+        except:
+            return False
 
 
 
@@ -139,8 +142,7 @@ class FritzCallmonitor():
 
     def handleIncomingCall(self, line):
         name = self.getNameByNumber(line.number_caller) or 'Unbekannt'
-        print xbmc.Player().isPlaying()
-        if xbmc.Player().isPlaying():
+        if xbmc.Player().isPlaying() and   __addon__.getSetting( "AC_Pause" ):
             xbmc.Player().pause()
         self.Notification('Eingehender Anruf', 'Von %s [%s]' % (name, line.number_caller))
 
