@@ -17,7 +17,6 @@ Tested-to-work-With:
 Install:
 ========
 
-1. [Download latest ZIP-File](https://github.com/wrow/xbmc-fritzbox/archive/master.zip)
 1. In XBMC:
    1. Settings -> Add-ons -> Install from zip file
    1. Chose downloaded zip file

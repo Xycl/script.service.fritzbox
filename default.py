@@ -138,6 +138,8 @@ class FritzCallmonitor():
 
     def handleOutgoingCall(self, line):
         name = self.getNameByNumber(line.number_called) or 'Unbekannt'
+        if xbmc.Player().isPlaying() and   __addon__.getSetting( "AC_Pause" ):
+            xbmc.Player().pause()
         self.Notification("Ausgehender Anruf", "zu %s [%s] (von %s)" % (name, line.number_called, line.number_used))
 
     def handleIncomingCall(self, line):
@@ -147,12 +149,12 @@ class FritzCallmonitor():
         self.Notification('Eingehender Anruf', 'Von %s [%s]' % (name, line.number_caller))
 
     def handleConnected(self, line):
-        if __addon__.getSetting( "AC_Pause" )  == 'true':
-            xbmc.Player().pause()
         name = self.getNameByNumber(line.number) or 'Unbekannt'
         self.Notification('Verbindung hergestellt', 'Mit %s [%s]' % (name, line.number))
 
     def handleDisconnected(self, line):
+        if __addon__.getSetting( "AC_Pause" ):
+            xbmc.Player().pause()
         self.Notification('Verbindung beendet', 'Dauer: %sh' % str(line.duration))
 
     def Notification(self, title, text, duration=False, img=False):
